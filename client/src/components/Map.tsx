@@ -14,7 +14,7 @@ export default function Map() {
 	initializeMap();
 
 	// const loader = new Loader({
-	// 	apiKey: 'AIzaSyCVnyyFCfdA7CUV9e_anjmBm_C0cxJtp80',
+	// 	apiKey: '',
 	// 	version: 'weekly',
 	// });
 
