@@ -1,32 +1,40 @@
+import { useMemo, useState } from 'react';
+import { GoogleMap, MarkerF } from '@react-google-maps/api';
+import './styles/Map.css';
+import { Restaurant, restaurants } from '../data/restaurant';
+import Menu from './Menu';
+
 export default function Map() {
-	const initializeMap = async (): Promise<void> => {
-		//@ts-ignore
-		let map: google.maps.Map;
+	const [locationData, setLocationData] = useState<Restaurant | null>(null);
+	console.log(locationData);
 
-		//@ts-ignore
-		const { Map } = await google.maps.importLibrary('maps');
-		map = new Map(document.getElementById('map') as HTMLElement, {
-			center: { lat: 40.712, lng: 74.006 },
-			zoom: 8,
-		});
-	};
+	const center = useMemo(() => ({ lat: 40.6958, lng: -73.9171 }), []);
 
-	initializeMap();
+	const markers: JSX.Element[] = restaurants.map((rest) => (
+		<MarkerF
+			key={rest.id}
+			position={{
+				lat: rest.geographies.coordinates[0],
+				lng: rest.geographies.coordinates[1],
+			}}
+			onClick={() => setLocationData(rest)}
+		/>
+	));
 
-	// const loader = new Loader({
-	// 	apiKey: '',
-	// 	version: 'weekly',
-	// });
-
-	// loader.load().then(async () => {
-	// 	// @ts-ignore google
-	// 	const { Map } = (await google.maps.importLibrary(
-	// 		'maps'
-	// 	)) as google.maps.MapsLibrary;
-	// 	let map = new Map(document.getElementById('map') as HTMLElement, {
-	// 		center: { lat: -34.397, lng: 150.644 },
-	// 		zoom: 8,
-	// 	});
-
-	return <div id='map'></div>;
+	return (
+		<GoogleMap
+			zoom={3}
+			center={center}
+			mapContainerStyle={{
+				width: '100%',
+				height: '100%',
+			}}
+			mapContainerClassName='map-container'
+		>
+			{markers}
+			{locationData !== null ? (
+				<Menu data={locationData} setLocationData={setLocationData} />
+			) : null}
+		</GoogleMap>
+	);
 }
