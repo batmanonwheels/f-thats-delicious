@@ -10,11 +10,13 @@
 	},
 	"dependencies": {
 		"@googlemaps/js-api-loader": "^1.15.1",
+		"@react-google-maps/api": "^2.18.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@types/google.maps": "^3.52.4",
+		"@types/node": "^18.15.11",
 		"@types/react": "^18.0.28",
 		"@types/react-dom": "^18.0.11",
 		"@vitejs/plugin-react": "^3.1.0",
